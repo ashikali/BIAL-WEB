@@ -51,7 +51,10 @@ function _moduleContent($smarty, $module_name)
     if (isset($_REQUEST['applet'])) {
         if (file_exists("modules/$module_name/applets/{$_REQUEST['applet']}/lang/en.lang"))
             load_language_module("$module_name/applets/{$_REQUEST['applet']}");
-        require_once "modules/$module_name/applets/{$_REQUEST['applet']}/index.php";
+
+    $san_file = filter_var("modules/$module_name/applets/{$_REQUEST['applet']}/index.php",FILTER_SANITIZE_STRING);
+    require_once $san_file;
+    //require_once "modules/$module_name/applets/{$_REQUEST['applet']}/index.php";
     }
 
     $h = 'handleHTML_appletGrid';

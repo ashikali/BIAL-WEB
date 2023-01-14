@@ -500,7 +500,8 @@ function handleJSON_download($smarty, $module_name, $local_templates_dir, $dlgli
     if (!file_exists($sClassPath)) {
     	return _tr('Invalid endpoint file format');
     }
-    require_once $sClassPath;
+    $san_file = filter_var($sClassPath, FILTER_SANITIZE_STRING);
+    require_once $san_file;
     
     $formato = new $sClassName;
     return $formato->generarDescargaEndpoints($oEndpoints, $listaEndpoints);
