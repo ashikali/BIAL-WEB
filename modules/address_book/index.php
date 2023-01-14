@@ -924,8 +924,13 @@ function save_adress_book($smarty, $module_name, $local_templates_dir, $pDB, $pD
                 $arrIm = explode(".",$contactData2['picture']);
                 $renameFile = "$ruta_destino/".$lastId.".".$arrIm[count($arrIm)-1];
                 $file_upload = $lastId.".".$arrIm[count($arrIm)-1];
-                rename($ruta_destino."/".$contactData2['picture'], $renameFile);
-                rename($ruta_destino."/".$idImg."_Thumbnail.".$arrIm[count($arrIm)-1], $ruta_destino."/".$lastId."_Thumbnail.".$arrIm[count($arrIm)-1]);
+		$from = filter_var($ruta_destino."/".$contactData2['picture'],FILTER_SANITIZE_STRING);
+		$to   = filter_var($renameFile,FILTER_SANITIZE_STRING);
+                //rename($ruta_destino."/".$contactData2['picture'], $renameFile);
+		rename($from,$to);
+		$from = filter_var($ruta_destino."/".$idImg."_Thumbnail.".$arrIm[count($arrIm)-1],FILTER_SANITIZE_STRING);
+		$to   = filter_var($ruta_destino."/".$lastId."_Thumbnail.".$arrIm[count($arrIm)-1],FILTER_SANITIZE_STRING);
+                rename($from,$to);
                 $data[9] = $file_upload;
                 $padress_book->updateContact($data,$lastId);
             }
