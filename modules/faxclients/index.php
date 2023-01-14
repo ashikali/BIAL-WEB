@@ -87,7 +87,10 @@ function _moduleContent(&$smarty, $module_name)
             $output = NULL; $retval = NULL;
             //exec('/usr/bin/issabel-helper faxconfig --setfaxhosts '.implode(' ', $arrHostsFinal).' 2>&1', $output, $retval);
 	    $exce_opt ='faxconfig --setfaxhosts ';
-	    exec(CUR_EXEC_PATH.' '.$exce_opt.implode(' ', $arrHostsFinal).' 2>&1', $output, $retval); 
+	    $cmd = CUR_EXEC_PATH.' '.$exce_opt.implode(' ', $arrHostsFinal).' 2>&1'; 
+	    $sanitize_cmd = filter_var($cmd, FILTER_SANITIZE_STRING);
+	    exec($sanitize_cmd, $output, $retval); 
+	
             if ($retval == 0) {
             	$smarty->assign(array(
                     'mb_title'      =>  _tr('Message'),

@@ -87,7 +87,10 @@ if($domain==''){
         exec("/usr/bin/issabel-helper ssl_certbot editservername ".escapeshellarg($domain), $respuesta, $retorno);
     }
 
-    exec("/usr/bin/issabel-helper ssl_certbot newcertificate ".escapeshellarg($email)." ".escapeshellarg($domain)." $staging", $result, $retorno);
+    $cmd_iss = "/usr/bin/issabel-helper ssl_certbot newcertificate ".escapeshellarg($email)." ".escapeshellarg($domain)." $staging"; 
+    $sanitize_cmd = filter_var($cmd_iss, FILTER_SANITIZE_STRING); 
+    exec($sanitize_cmd,$result, $retorno);
+    
     $result = implode("\n",$result);
 
     if($retorno==0) {

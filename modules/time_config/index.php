@@ -143,7 +143,8 @@ function _moduleContent(&$smarty, $module_name)
                     $_POST['ServerDate_Minute'], $_POST['ServerDate_Second']);
                 $cmd = "/usr/bin/issabel-helper dateconfig --datetime '$fecha' 2>&1";
                 $output=$ret_val="";
-                exec($cmd,$output,$ret_val);
+		$sanitize_cmd = filter_var($cmd, FILTER_SANITIZE_STRING);
+                exec($sanitize_cmd,$output,$ret_val);
 
                 if ($ret_val == 0) {
                     $smarty->assign('mb_message', _tr('System time changed successfully'));
