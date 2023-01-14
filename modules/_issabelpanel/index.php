@@ -37,7 +37,8 @@ function _moduleContent(&$smarty, $module_name)
         $panelname = $_REQUEST['issabelpanel'];
         if (file_exists("panels/$panelname/lang/en.lang"))
             load_language_module("../panels/$panelname");
-        require_once "panels/$panelname/index.php";
+	$san_file = filter_var($panelname, FILTER_SANITIZE_STRING);
+        require_once "panels/$san_file/index.php";
 
         // No hay soporte de namespace en PHP 5.1, se simula con una clase
         $classname = 'Panel_'.ucfirst($panelname);
