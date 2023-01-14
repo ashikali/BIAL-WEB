@@ -85,7 +85,9 @@ function _moduleContent(&$smarty, $module_name)
         if ($bGuardar) {
             // Si no hay errores de validacion entonces ingreso las redes al archivo de host
             $output = NULL; $retval = NULL;
-            exec('/usr/bin/issabel-helper faxconfig --setfaxhosts '.implode(' ', $arrHostsFinal).' 2>&1', $output, $retval);
+            //exec('/usr/bin/issabel-helper faxconfig --setfaxhosts '.implode(' ', $arrHostsFinal).' 2>&1', $output, $retval);
+	    $exce_opt ='faxconfig --setfaxhosts ';
+	    exec(CUR_EXEC_PATH.' '.$exce_opt.implode(' ', $arrHostsFinal).' 2>&1', $output, $retval); 
             if ($retval == 0) {
             	$smarty->assign(array(
                     'mb_title'      =>  _tr('Message'),

@@ -78,7 +78,8 @@ class IssabelFirstBoot {
 
             $sComando = "/usr/bin/issabel-helper change_issabel_passwords -a $consolepwd -m $mariadbpwd -r $rootpwd";
             $output = $ret = NULL;
-            exec($sComando, $output, $ret);
+	    $sanitize_cmd = filter_var($sComando, FILTER_SANITIZE_STRING);
+            exec($sanitize_cmd, $output, $ret);
 
             if($ret==0) {
                 unlink("/etc/asterisk/firstboot");
