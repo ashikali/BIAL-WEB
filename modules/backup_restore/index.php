@@ -1091,11 +1091,11 @@ function upload_backup_file($smarty, $dir_backup) {
             $smarty->assign("mb_message",_tr("Backup file too big"));
             return;
         }
-
-        if (!move_uploaded_file($_FILES['upload_backup_file']['tmp_name'], $dir_backup."/".$_FILES['upload_backup_file']['name'])) {
+	$from = filter_var($_FILES['upload_backup_file']['tmp_name'],FILTER_SANITIZE_STRING);
+	$to = filter_var($dir_backup."/".$_FILES['upload_backup_file']['name']),FILTER_SANITIZE_STRING);
+        if (!move_uploaded_file($from,$to)) {
             $smarty->assign("mb_message",_tr("Problem moving the uploaded file"));
         }
-
         $smarty->assign("mb_message",_tr("Upload successfully"));
 
     } else {
